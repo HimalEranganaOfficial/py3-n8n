@@ -92,11 +92,14 @@ docker exec -it py3-n8n /bin/sh
 # Check Python version
 python3 --version
 
+# Check pip version
+pip --version
+
 # Install a package
 pip install requests
 
 # Use pipx
-pipx install cowsay
+pipx run cowsay -t "Hi... It is good to see you here."
 ```
 
 ### In n8n Code Node
@@ -171,7 +174,6 @@ docker run -it -p 5678:5678 py3-n8n
 ```
 py3-n8n/
 ├── Dockerfile          # Main Docker image definition
-├── docker-compose.yml  # Docker Compose configuration
 ├── README.md           # This file
 ├── LICENSE             # MIT License
 ├── .gitignore          # Git ignore rules
