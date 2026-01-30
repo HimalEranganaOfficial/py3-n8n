@@ -23,31 +23,7 @@ A custom Docker image that extends the official [n8n](https://n8n.io/) image wit
 
 ---
 
-## 🚀 Quick Start
-
-### Option 1: Using Docker Run
-
-```bash
-docker build -t py3-n8n .
-
-docker run -it \
-  --name py3-n8n \
-  -p 5678:5678 \
-  -v n8n_data:/home/node/.n8n \
-  py3-n8n
-```
-
-Then open http://localhost:5678 in your browser.
-
-### Option 2: Using Docker Compose
-
-```bash
-docker-compose up -d
-```
-
----
-
-## 📋 Full Docker Run Command
+## 🚀📋 Quick Start / Full Docker Run Command
 
 ### Linux / macOS
 
@@ -64,6 +40,8 @@ docker run -it \
   py3-n8n
 ```
 
+Then open [http://localhost:5678](http://localhost:5678) in your browser.
+
 ### Windows PowerShell
 
 ```powershell
@@ -78,6 +56,8 @@ docker run -it `
   --mount type=bind,src="C:\path\to\your\files",target=/home/node/.n8n-files `
   py3-n8n
 ```
+
+Then open [http://localhost:5678](http://localhost:5678) in your browser.
 
 ---
 
