@@ -16,16 +16,36 @@ A custom Docker image that extends the official [n8n](https://n8n.io/) image wit
 | Feature | Description |
 |---------|-------------|
 | 🐍 **Python 3.12** | Full Python installation |
-| 📦 **pip** | Python package installer (no restrictions) |
+| 📦 **pip** | Python package installer (PEP 668 restrictions removed) |
 | 📦 **pipx** | Install and run Python applications in isolated environments |
 | 🔧 **apk restored** | Alpine package manager available for additional packages |
 | 🚀 **Ready to use** | Works exactly like the official n8n image |
 
 ---
 
-## 🚀📋 Quick Start / Full Docker Run Command
+## 🚀 Quick Start
 
-### Linux / macOS
+### Basic Run Command
+
+**Linux / macOS:**
+
+```bash
+docker run -it --name py3-n8n -p 5678:5678 -v n8n_data:/home/node/.n8n py3-n8n
+```
+
+**Windows PowerShell:**
+
+```powershell
+docker run -it --name py3-n8n -p 5678:5678 -v n8n_data:/home/node/.n8n py3-n8n
+```
+
+Then open [http://localhost:5678](http://localhost:5678) in your browser.
+
+---
+
+### Full Run Command with All Options
+
+**Linux / macOS:**
 
 ```bash
 docker run -it \
@@ -35,15 +55,13 @@ docker run -it \
   -e TZ="Asia/Colombo" \
   -e N8N_ENFORCE_SETTINGS_FILE_PERMISSIONS=true \
   -e N8N_RUNNERS_ENABLED=true \
-  -e NODES_EXCLUDE=[] \
+  -e NODES_EXCLUDE="[]" \
   -v n8n_data:/home/node/.n8n \
   -v /path/to/your/files:/home/node/.n8n-files \
   py3-n8n
 ```
 
-Then open [http://localhost:5678](http://localhost:5678) in your browser.
-
-### Windows PowerShell
+**Windows PowerShell:**
 
 ```powershell
 docker run -it `
@@ -53,13 +71,47 @@ docker run -it `
   -e TZ="Asia/Colombo" `
   -e N8N_ENFORCE_SETTINGS_FILE_PERMISSIONS=true `
   -e N8N_RUNNERS_ENABLED=true `
-  -e NODES_EXCLUDE=[] `
+  -e NODES_EXCLUDE="[]" `
   -v n8n_data:/home/node/.n8n `
   --mount type=bind,src="C:\path\to\your\files",target=/home/node/.n8n-files `
   py3-n8n
 ```
 
-Then open [http://localhost:5678](http://localhost:5678) in your browser.
+> 📁 **Note:** The bind mount (`--mount type=bind` or `-v /host/path:/container/path`) for local files is **optional**. It's useful when you want to access local files from within n8n workflows. See [Docker Bind Mounts Documentation](https://docs.docker.com/engine/storage/bind-mounts/) for more details.
+
+> 🌍 **Timezone:** Find your timezone value from the [IANA Time Zone Database](https://en.wikipedia.org/wiki/List_of_tz_database_time_zones#List).
+
+---
+
+## 💻 Using Environment Variables in Docker Commands
+
+Environment variables in Docker commands are specified with `-e VAR_NAME="value"`. However, the syntax for using **system environment variables** differs across terminals:
+
+| Terminal | Syntax | Example |
+|----------|--------|---------|
+| **Linux / macOS (Bash/Zsh)** | `$VAR_NAME` or `${VAR_NAME}` | `-v $HOME/files:/home/node/.n8n-files` |
+| **Windows PowerShell** | `$env:VAR_NAME` | `--mount type=bind,src="$env:USERPROFILE\files",target=/home/node/.n8n-files` |
+| **Windows CMD** | `%VAR_NAME%` | `--mount type=bind,src="%USERPROFILE%\files",target=/home/node/.n8n-files` |
+
+### Examples
+
+**Linux / macOS:**
+
+```bash
+docker run -it -v "$HOME/my-files:/home/node/.n8n-files" py3-n8n
+```
+
+**Windows PowerShell:**
+
+```powershell
+docker run -it --mount type=bind,src="$env:USERPROFILE\my-files",target=/home/node/.n8n-files py3-n8n
+```
+
+**Windows CMD:**
+
+```cmd
+docker run -it --mount type=bind,src="%USERPROFILE%\my-files",target=/home/node/.n8n-files py3-n8n
+```
 
 ---
 
@@ -71,17 +123,15 @@ Then open [http://localhost:5678](http://localhost:5678) in your browser.
 # Enter the container
 docker exec -it py3-n8n /bin/sh
 
-# Check Python version
+# Check versions
 python3 --version
-
-# Check pip version
 pip --version
 
 # Install a package
 pip install requests
 
 # Use pipx
-pipx run cowsay -t "Hi... It is good to see you here."
+pipx run cowsay -t "Hello from py3-n8n!"
 ```
 
 ### In n8n Code Node
@@ -91,9 +141,7 @@ Use the **Code** node with Python:
 ```python
 import json
 
-# Your Python code here
 result = {"message": "Hello from Python!"}
-
 return json.dumps(result)
 ```
 
@@ -104,12 +152,7 @@ return json.dumps(result)
 ### Python Packages
 
 ```bash
-# Using pip
 pip install pandas numpy requests
-
-# Using pipx (for CLI tools)
-pipx install black
-pipx install poetry
 ```
 
 ### System Packages
@@ -131,23 +174,31 @@ docker exec -u root -it py3-n8n apk add --no-cache ffmpeg
 | `N8N_RUNNERS_ENABLED` | Enable task runners | `false` |
 | `NODES_EXCLUDE` | Nodes to exclude | `[]` |
 
-See [n8n documentation](https://docs.n8n.io/hosting/configuration/environment-variables/) for more options.
+See [n8n Environment Variables Documentation](https://docs.n8n.io/hosting/configuration/environment-variables/) for more options.
 
 ---
 
 ## 🏗️ Build Locally
 
 ```bash
-# Clone the repository
 git clone https://github.com/HimalEranganaOfficial/py3-n8n.git
 cd py3-n8n
-
-# Build the image
 docker build -t py3-n8n .
-
-# Run
 docker run -it -p 5678:5678 py3-n8n
 ```
+
+---
+
+## 🤔 Why This Image?
+
+The official n8n Docker image uses **Docker Hardened Images** (Alpine-based) which removes the `apk` package manager for security. This makes it impossible to install Python or other packages.
+
+This image solves that by:
+
+1. ✅ Restoring the `apk` package manager using `apk-tools-static`
+2. ✅ Installing Python 3, pip, and pipx
+3. ✅ Removing PEP 668 restrictions for pip (the `EXTERNALLY-MANAGED` file)
+4. ✅ Keeping everything else from the official n8n image
 
 ---
 
@@ -161,19 +212,6 @@ py3-n8n/
 ├── .gitignore          # Git ignore rules
 └── .dockerignore       # Docker ignore rules
 ```
-
----
-
-## 🤔 Why This Image?
-
-The official n8n Docker image uses **Docker Hardened Images** (Alpine-based) which removes the `apk` package manager for security. This makes it impossible to install Python or other packages.
-
-This image solves that by:
-
-1. ✅ Restoring the `apk` package manager using `apk-tools-static`
-2. ✅ Installing Python 3, pip, and pipx
-3. ✅ Removing PEP 668 restrictions for pip
-4. ✅ Keeping everything else from the official n8n image
 
 ---
 
