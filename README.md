@@ -229,14 +229,15 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ---
 
-## 👤 Author
+## 👥 Contributors
 
-**Himal Erangana**
-
-- GitHub: [@HimalEranganaOfficial](https://github.com/HimalEranganaOfficial)
+| Avatar | Name | Role | Links |
+|--------|------|------|-------|
+| <img src="https://avatars.githubusercontent.com/u/62547849?v=4" width="50" height="50" style="border-radius: 50%;" alt="Himal Erangana"> | **Himal Erangana** | Developer & Maintainer | [![GitHub](https://img.shields.io/badge/GitHub-HimalEranganaOfficial-181717?logo=github)](https://github.com/HimalEranganaOfficial) |
+| | **B.M.D.N.S. Jayasinghe** | Project Initiator | [![Google Scholar](https://img.shields.io/badge/Google%20Scholar-Profile-4285F4?logo=googlescholar)](https://scholar.google.com/citations?hl=en&authuser=3&user=4Wi9YoQAAAAJ) |
 
 ---
 
 <p align="center">
-  Made with ❤️ by <a href="https://github.com/HimalEranganaOfficial">Himal Erangana</a>
+  Made with ❤️ for the n8n community
 </p>
