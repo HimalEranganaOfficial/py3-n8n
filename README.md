@@ -35,6 +35,7 @@ docker run -it \
   -e TZ="Asia/Colombo" \
   -e N8N_ENFORCE_SETTINGS_FILE_PERMISSIONS=true \
   -e N8N_RUNNERS_ENABLED=true \
+  -e NODES_EXCLUDE=[] \
   -v n8n_data:/home/node/.n8n \
   -v /path/to/your/files:/home/node/.n8n-files \
   py3-n8n
@@ -52,6 +53,7 @@ docker run -it `
   -e TZ="Asia/Colombo" `
   -e N8N_ENFORCE_SETTINGS_FILE_PERMISSIONS=true `
   -e N8N_RUNNERS_ENABLED=true `
+  -e NODES_EXCLUDE=[] `
   -v n8n_data:/home/node/.n8n `
   --mount type=bind,src="C:\path\to\your\files",target=/home/node/.n8n-files `
   py3-n8n
