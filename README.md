@@ -1,6 +1,7 @@
 # 🐍 py3-n8n
 
-[![Docker](https://img.shields.io/badge/Docker-Ready-blue?logo=docker)](https://www.docker.com/)
+[![Docker Hub](https://img.shields.io/docker/v/himalerangana/py3-n8n?label=Docker%20Hub&logo=docker)](https://hub.docker.com/r/himalerangana/py3-n8n)
+[![Docker Pulls](https://img.shields.io/docker/pulls/himalerangana/py3-n8n?logo=docker)](https://hub.docker.com/r/himalerangana/py3-n8n)
 [![n8n](https://img.shields.io/badge/n8n-Workflow%20Automation-orange)](https://n8n.io/)
 [![Python](https://img.shields.io/badge/Python-3.12-green?logo=python)](https://www.python.org/)
 [![License](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
@@ -8,6 +9,14 @@
 > **n8n workflow automation with full Python 3 support**
 
 A custom Docker image that extends the official [n8n](https://n8n.io/) image with Python 3, pip, and pipx pre-installed. Perfect for running Python scripts within your n8n workflows!
+
+---
+
+## 📥 Pull from Docker Hub
+
+```bash
+docker pull himalerangana/py3-n8n
+```
 
 ---
 
@@ -30,13 +39,13 @@ A custom Docker image that extends the official [n8n](https://n8n.io/) image wit
 **Linux / macOS:**
 
 ```bash
-docker run -it --name py3-n8n -p 5678:5678 -v n8n_data:/home/node/.n8n py3-n8n
+docker run -it --name py3-n8n -p 5678:5678 -v n8n_data:/home/node/.n8n himalerangana/py3-n8n
 ```
 
 **Windows PowerShell:**
 
 ```powershell
-docker run -it --name py3-n8n -p 5678:5678 -v n8n_data:/home/node/.n8n py3-n8n
+docker run -it --name py3-n8n -p 5678:5678 -v n8n_data:/home/node/.n8n himalerangana/py3-n8n
 ```
 
 Then open [http://localhost:5678](http://localhost:5678) in your browser.
@@ -58,7 +67,7 @@ docker run -it \
   -e NODES_EXCLUDE="[]" \
   -v n8n_data:/home/node/.n8n \
   -v /path/to/your/files:/home/node/.n8n-files \
-  py3-n8n
+  himalerangana/py3-n8n
 ```
 
 **Windows PowerShell:**
@@ -74,7 +83,7 @@ docker run -it `
   -e NODES_EXCLUDE="[]" `
   -v n8n_data:/home/node/.n8n `
   --mount type=bind,src="C:\path\to\your\files",target=/home/node/.n8n-files `
-  py3-n8n
+  himalerangana/py3-n8n
 ```
 
 > 📁 **Note:** The bind mount (`--mount type=bind` or `-v /host/path:/container/path`) for local files is **optional**. It's useful when you want to access local files from within n8n workflows. See [Docker Bind Mounts Documentation](https://docs.docker.com/engine/storage/bind-mounts/) for more details.
@@ -98,19 +107,19 @@ Environment variables in Docker commands are specified with `-e VAR_NAME="value"
 **Linux / macOS:**
 
 ```bash
-docker run -it -v "$HOME/my-files:/home/node/.n8n-files" py3-n8n
+docker run -it -v "$HOME/my-files:/home/node/.n8n-files" himalerangana/py3-n8n
 ```
 
 **Windows PowerShell:**
 
 ```powershell
-docker run -it --mount type=bind,src="$env:USERPROFILE\my-files",target=/home/node/.n8n-files py3-n8n
+docker run -it --mount type=bind,src="$env:USERPROFILE\my-files",target=/home/node/.n8n-files himalerangana/py3-n8n
 ```
 
 **Windows CMD:**
 
 ```cmd
-docker run -it --mount type=bind,src="%USERPROFILE%\my-files",target=/home/node/.n8n-files py3-n8n
+docker run -it --mount type=bind,src="%USERPROFILE%\my-files",target=/home/node/.n8n-files himalerangana/py3-n8n
 ```
 
 ---
@@ -180,6 +189,8 @@ See [n8n Environment Variables Documentation](https://docs.n8n.io/hosting/config
 
 ## 🏗️ Build Locally
 
+If you prefer to build the image yourself instead of pulling from Docker Hub:
+
 ```bash
 git clone https://github.com/HimalEranganaOfficial/py3-n8n.git
 cd py3-n8n
@@ -233,8 +244,8 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 | Avatar | Name | Role | Links |
 |--------|------|------|-------|
-| <img src="https://avatars.githubusercontent.com/u/62547849?v=4" width="50" height="50" style="border-radius: 50%;" alt="Himal Erangana"> | **Himal Erangana** | Developer & Maintainer | [![GitHub](https://img.shields.io/badge/GitHub-HimalEranganaOfficial-181717?logo=github)](https://github.com/HimalEranganaOfficial) [![Linktree](https://img.shields.io/badge/Linktree-43E55E?logo=linktree&logoColor=white)](https://linktr.ee/HimalErangana) |
-| <img src="https://cdn.jsdelivr.net/gh/RussianSwornTranslator/RussianSwornTranslator.github.io@latest/images/favicon-512.png" width="50" height="50" style="border-radius: 50%;" alt="Nilan Sankalpa Jayasinghe"> | **B.M.D.N.S. Jayasinghe** | Project Initiator | [![Google Scholar](https://img.shields.io/badge/Google%20Scholar-Profile-4285F4?logo=googlescholar)](https://scholar.google.com/citations?hl=en&authuser=3&user=4Wi9YoQAAAAJ) [![Facebook](https://img.shields.io/badge/Facebook-1877F2?logo=facebook&logoColor=white)](https://www.facebook.com/bmdnsjayasinghe) |
+| <img src="https://avatars.githubusercontent.com/u/62547849?v=4" width="50" height="50" style="border-radius: 50%;" alt="Himal Erangana"> | **Himal Erangana** | Developer & Maintainer | [![GitHub](https://img.shields.io/badge/GitHub-181717?logo=github&logoColor=white)](https://github.com/HimalEranganaOfficial) [![Linktree](https://img.shields.io/badge/Linktree-43E55E?logo=linktree&logoColor=white)](https://linktr.ee/HimalErangana) |
+| <img src="https://cdn.jsdelivr.net/gh/RussianSwornTranslator/RussianSwornTranslator.github.io@latest/images/favicon-512.png" width="50" height="50" style="border-radius: 50%;" alt="Nilan Sankalpa Jayasinghe"> | **B.M.D.N.S. Jayasinghe** | Project Initiator | [![Google Scholar](https://img.shields.io/badge/Google%20Scholar-4285F4?logo=googlescholar&logoColor=white)](https://scholar.google.com/citations?hl=en&authuser=3&user=4Wi9YoQAAAAJ) [![Facebook](https://img.shields.io/badge/Facebook-1877F2?logo=facebook&logoColor=white)](https://www.facebook.com/bmdnsjayasinghe) |
 
 ---
 
