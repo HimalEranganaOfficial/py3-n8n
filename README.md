@@ -28,6 +28,7 @@ docker pull himalerangana/py3-n8n
 | 📦 **pip** | Python package installer (PEP 668 restrictions removed) |
 | 📦 **pipx** | Install and run Python applications in isolated environments |
 | 🔧 **apk restored** | Alpine package manager available for additional packages |
+| 🛡️ **sudo** | The `node` user can run privileged commands via `sudo` without a password |
 | 🚀 **Ready to use** | Works exactly like the official n8n image |
 
 ---
@@ -87,7 +88,7 @@ docker run -it `
 ```
 
 > 📁 **Note:** The bind mount (`--mount type=bind` or `-v /host/path:/container/path`) for local files is **optional**. It's useful when you want to access local files from within n8n workflows. See [Docker Bind Mounts Documentation](https://docs.docker.com/engine/storage/bind-mounts/) for more details.
-
+>
 > 🌍 **Timezone:** Find your timezone value from the [IANA Time Zone Database](https://en.wikipedia.org/wiki/List_of_tz_database_time_zones#List).
 
 ---
@@ -101,7 +102,7 @@ Environment variables in Docker commands are specified with `-e VAR_NAME="value"
 | **Linux / macOS (Bash/Zsh)** | `$VAR_NAME` or `${VAR_NAME}` | `-v $HOME/files:/home/node/.n8n-files` |
 | **Windows PowerShell** | `$env:VAR_NAME` | `--mount type=bind,src="$env:USERPROFILE\files",target=/home/node/.n8n-files` |
 | **Windows CMD** | `%VAR_NAME%` | `--mount type=bind,src="%USERPROFILE%\files",target=/home/node/.n8n-files` |
-
+|
 ### Examples
 
 **Linux / macOS:**
@@ -120,6 +121,7 @@ docker run -it --mount type=bind,src="$env:USERPROFILE\my-files",target=/home/no
 
 ```cmd
 docker run -it --mount type=bind,src="%USERPROFILE%\my-files",target=/home/node/.n8n-files himalerangana/py3-n8n
+```
 ```
 
 ---
@@ -166,10 +168,17 @@ pip install pandas numpy requests
 
 ### System Packages
 
+The `node` user has passwordless `sudo` access, so you can install Alpine packages directly without needing to exec as root:
+
 ```bash
-# apk is restored! Install any Alpine package
-docker exec -u root -it py3-n8n apk add --no-cache ffmpeg
+# Enter the container as the default node user
+docker exec -it py3-n8n /bin/sh
+
+# Install any Alpine package using sudo (no password required)
+sudo apk add --no-cache ffmpeg
 ```
+
+> 💡 **Tip:** In previous versions, you had to use `docker exec -u root` to install system packages. With `sudo` now included, the `node` user can do it directly — this also works in **Docker Desktop's Exec tab**, where switching users isn't possible.
 
 ---
 
@@ -209,7 +218,8 @@ This image solves that by:
 1. ✅ Restoring the `apk` package manager using `apk-tools-static`
 2. ✅ Installing Python 3, pip, and pipx
 3. ✅ Removing PEP 668 restrictions for pip (the `EXTERNALLY-MANAGED` file)
-4. ✅ Keeping everything else from the official n8n image
+4. ✅ Adding `sudo` so the `node` user can run privileged commands without a password
+5. ✅ Keeping everything else from the official n8n image
 
 ---
 
