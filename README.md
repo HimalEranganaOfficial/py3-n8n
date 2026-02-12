@@ -102,7 +102,7 @@ Environment variables in Docker commands are specified with `-e VAR_NAME="value"
 | **Linux / macOS (Bash/Zsh)** | `$VAR_NAME` or `${VAR_NAME}` | `-v $HOME/files:/home/node/.n8n-files` |
 | **Windows PowerShell** | `$env:VAR_NAME` | `--mount type=bind,src="$env:USERPROFILE\files",target=/home/node/.n8n-files` |
 | **Windows CMD** | `%VAR_NAME%` | `--mount type=bind,src="%USERPROFILE%\files",target=/home/node/.n8n-files` |
-|
+
 ### Examples
 
 **Linux / macOS:**
